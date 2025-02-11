@@ -11,3 +11,5 @@ function somaMultiplos() {
 }
 
 console.log(somaMultiplos());
+
+module.exports = { somaMultiplos };
