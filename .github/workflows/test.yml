@@ -23,7 +23,10 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
-      - name: Run Tests
+      - name: Arrumar o jest
+        run: chmod +x node_modules/.bin/jest
+
+      - name: Rodar Testes
         run: npm test
 
       - name: Gerar relatorio para gh-page
