@@ -1,4 +1,4 @@
-name: Roda testes e gera relatorio
+name: Testes
 
 on:
   push:
@@ -9,13 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write 
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
-      - name: Checar codigo
+      - name: Checar 
         uses: actions/checkout@v3
 
-      - name: Executar Node.js
+      - name: Executar Node
         uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -23,16 +25,18 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
-      - name: Arrumar o jest
-        run: chmod +x node_modules/.bin/jest
-
-      - name: Rodar Testes
+      - name: Run Tests
         run: npm test
 
-      - name: Enviar relatório 
+      - name: Criar pasta de resultado
+        if: always()
+        run: |
+          mkdir -p test-results
+          echo "<h1>Relatório de Testes</h1><p>Nenhum dado disponível</p>" > test-results/index.html
+
+      - name: Enviar ao GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./mochawesome-report
-          destination_dir: .
-          keep_files: true  
+          publish_dir: ./test-results
+          keep_files: true

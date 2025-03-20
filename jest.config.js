@@ -1,9 +1,10 @@
 module.exports = {
-    testEnvironment: "node",
+    testEnvironment: 'node',
     reporters: [
-      "default",
-      ["jest-html-reporter", {
-        outputPath: "./test-results/report.html"
+      'default',
+      ['jest-html-reporter', {
+        outputPath: './test-results/index.html',
+        includeFailureMsg: true
       }]
     ]
   };
