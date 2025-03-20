@@ -3,7 +3,7 @@ module.exports = {
     reporters: [
       'default',
       ['jest-html-reporter', {
-        outputPath: './test-results/index.html',
+        outputPath: './test-results/index.html', 
         includeFailureMsg: true
       }]
     ]
