@@ -1,4 +1,4 @@
-name: Testes e Deploy
+name: Teste
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
       id-token: write
 
     steps:
-      - name: Checkout
+      - name: Checar código
         uses: actions/checkout@v3
 
       - name: Executar Node
@@ -25,14 +25,21 @@ jobs:
       - name: Instalar dependencias
         run: npm install
 
-      - name: Permissao Jest
+      - name: Permissões do Jest
         run: chmod +x node_modules/.bin/jest
 
-      - name: Rudar Tests
+      - name: Rodar Testes
         run: npm test
 
-      - name: Criar pasta de resultado
-        if: always()
+      # Alteração principal aqui ▼
+      - name: Preparar Resultados
+        if: success()
+        run: |
+          mkdir -p test-results
+          cp ./test-results/index.html ./test-results/index.html
+
+      - name: Relatório de erro
+        if: failure()
         run: |
           mkdir -p test-results
           echo "<h1>Relatório de Testes</h1><p>Nenhum dado disponível</p>" > test-results/index.html
